@@ -2742,8 +2742,8 @@ design rules under a new name.</description>
 <wire x1="43.18" y1="48.895" x2="43.18" y2="52.07" width="1.016" layer="16"/>
 <wire x1="43.18" y1="52.07" x2="44.45" y2="54.61" width="1.016" layer="16"/>
 <contactref element="JP5" pad="1"/>
-<wire x1="25.4" y1="14.605" x2="26.67" y2="8.89" width="1.016" layer="16"/>
-<wire x1="26.67" y1="8.89" x2="34.29" y2="1.27" width="1.016" layer="16"/>
+<wire x1="25.4" y1="14.605" x2="25.4" y2="10.16" width="1.016" layer="16"/>
+<wire x1="25.4" y1="10.16" x2="34.29" y2="1.27" width="1.016" layer="16"/>
 <wire x1="34.29" y1="1.27" x2="47.625" y2="1.27" width="1.016" layer="16"/>
 <wire x1="47.625" y1="1.27" x2="49.53" y2="3.175" width="1.016" layer="16"/>
 <wire x1="49.53" y1="3.175" x2="49.53" y2="6.35" width="1.016" layer="16"/>

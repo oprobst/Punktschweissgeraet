@@ -15676,6 +15676,9 @@ Based on the following sources:&lt;p&gt;
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="JP9" library="pinhead" deviceset="PINHD-1X3" device=""/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
+<part name="R5" library="rcl" deviceset="R-EU_" device="R1206" value="150"/>
+<part name="GND1" library="supply1" deviceset="GND" device=""/>
+<part name="JP11" library="pinhead" deviceset="PINHD-1X2" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15689,6 +15692,7 @@ Based on the following sources:&lt;p&gt;
 <text x="167.64" y="55.88" size="1.778" layer="97">Fußtaster</text>
 <text x="144.78" y="53.34" size="1.778" layer="97">AutoSchalter</text>
 <text x="248.92" y="2.54" size="1.778" layer="97">FET Treiber</text>
+<text x="172.72" y="20.32" size="1.778" layer="97">LED2</text>
 </plain>
 <instances>
 <instance part="R1" gate="G$1" x="226.06" y="-33.02" rot="R90"/>
@@ -15750,6 +15754,9 @@ Based on the following sources:&lt;p&gt;
 <instance part="GND6" gate="1" x="208.28" y="17.78"/>
 <instance part="JP9" gate="A" x="251.46" y="10.16"/>
 <instance part="GND2" gate="1" x="238.76" y="-2.54"/>
+<instance part="R5" gate="G$1" x="160.02" y="38.1" rot="R180"/>
+<instance part="GND1" gate="1" x="165.1" y="17.78"/>
+<instance part="JP11" gate="G$1" x="177.8" y="25.4"/>
 </instances>
 <busses>
 <bus name="DISPLAY:DATA[0..3],RS,RW,LED">
@@ -15890,6 +15897,13 @@ Based on the following sources:&lt;p&gt;
 <wire x1="238.76" y1="7.62" x2="238.76" y2="5.08" width="0.1524" layer="91"/>
 <wire x1="238.76" y1="5.08" x2="238.76" y2="0" width="0.1524" layer="91"/>
 <pinref part="GND2" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="GND1" gate="1" pin="GND"/>
+<wire x1="165.1" y1="22.86" x2="165.1" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="22.86" x2="165.1" y2="25.4" width="0.1524" layer="91"/>
+<pinref part="JP11" gate="G$1" pin="2"/>
+<wire x1="165.1" y1="25.4" x2="175.26" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
@@ -16356,6 +16370,22 @@ Based on the following sources:&lt;p&gt;
 <junction x="243.84" y="73.66"/>
 <wire x1="243.84" y1="38.1" x2="243.84" y2="48.26" width="0.1524" layer="91"/>
 <label x="243.84" y="38.1" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="R5" gate="G$1" pin="1"/>
+<wire x1="165.1" y1="38.1" x2="165.1" y2="30.48" width="0.1524" layer="91"/>
+<pinref part="JP11" gate="G$1" pin="1"/>
+<wire x1="175.26" y1="27.94" x2="165.1" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="27.94" x2="165.1" y2="30.48" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="R5" gate="G$1" pin="2"/>
+<pinref part="IC3" gate="1" pin="PC5(ADC5/SCLPCINT13)"/>
+<wire x1="154.94" y1="38.1" x2="124.46" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
