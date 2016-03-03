@@ -13192,9 +13192,10 @@ http://www.conrad.de/ce/de/product/717535/SMD-Signalgeber-Geraeusch-Entwicklung-
 <text x="-8.5" y="-0.5" size="1.27" layer="21">&gt;NAME</text>
 </package>
 <package name="PIEZO-INDIKATOR-KPMG">
-<circle x="0" y="0" radius="4.5" width="0.127" layer="21"/>
-<pad name="P$1" x="2" y="0" drill="0.8" diameter="1.778" shape="octagon"/>
-<pad name="P$2" x="-2" y="0" drill="0.8" diameter="1.778" shape="octagon"/>
+<pad name="P$1" x="3.8" y="0" drill="0.8" diameter="1.778" shape="octagon"/>
+<pad name="P$2" x="-3.8" y="0" drill="0.8" diameter="1.778" shape="octagon"/>
+<circle x="0" y="0" radius="6.00749375" width="0.127" layer="21"/>
+<text x="-1.3" y="1.3" size="1.27" layer="21">KPX</text>
 </package>
 </packages>
 <symbols>
