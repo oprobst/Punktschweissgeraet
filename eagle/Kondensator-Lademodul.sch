@@ -15094,7 +15094,7 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <part name="U$2" library="Gleichrichter" deviceset="GLEICHRICHTER" device=""/>
 <part name="X1" library="con-phoenix-508" deviceset="MKDSN1,5/2-5,08" device=""/>
 <part name="C7" library="rcl" deviceset="C-EU" device="C0805" value="100nF"/>
-<part name="C8" library="rcl" deviceset="CPOL-EU" device="E3.5-8" value="100µ"/>
+<part name="C8" library="rcl" deviceset="CPOL-EU" device="E5-13" value="1000µ"/>
 <part name="D3" library="diode" deviceset="1N4004" device=""/>
 <part name="R20" library="rcl" deviceset="R-EU_" device="R1206" value="100k"/>
 <part name="R21" library="pot" deviceset="TRIM_EU-" device="PT10"/>
@@ -15108,7 +15108,7 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="IC2" library="v-reg" deviceset="LM317TS" device=""/>
 <part name="C1" library="rcl" deviceset="C-EU" device="C0805" value="100nF"/>
-<part name="C2" library="rcl" deviceset="CPOL-EU" device="E3.5-8" value="100µ"/>
+<part name="C2" library="rcl" deviceset="CPOL-EU" device="E5-13" value="1000µ"/>
 <part name="D1" library="diode" deviceset="1N4004" device=""/>
 <part name="R1" library="rcl" deviceset="R-EU_" device="R1206" value="100k"/>
 <part name="R2" library="pot" deviceset="TRIM_EU-" device="PT10"/>
@@ -15122,7 +15122,7 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <part name="JP3" library="pinhead" deviceset="PINHD-1X2" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="IC3" library="linear" deviceset="78*" device="TV" technology="05" value="7818TV"/>
-<part name="C4" library="rcl" deviceset="CPOL-EU" device="E3.5-8" value="1000µ"/>
+<part name="C4" library="rcl" deviceset="CPOL-EU" device="E5-13" value="1000µ"/>
 <part name="C5" library="rcl" deviceset="C-EU" device="C0805" value="100nF"/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
