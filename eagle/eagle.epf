@@ -7,7 +7,6 @@ Desktop="Desktop"
 
 [Globals]
 AutoSaveProject=1
-UsedLibrary="O:/Oliver/eagle/lib/0liver.lbr"
 UsedLibrary="F:/Hobby/Elektronik/eagle/lbr/19inch.lbr"
 UsedLibrary="F:/Hobby/Elektronik/eagle/lbr/40xx.lbr"
 UsedLibrary="F:/Hobby/Elektronik/eagle/lbr/41xx.lbr"
@@ -353,7 +352,7 @@ UsedLibrary="F:/Hobby/Elektronik/eagle/lbr/ltspice/Comparators.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="0 0 1919 1016"
+Loc="0 0 1915 1007"
 State=2
 Number=0
 

@@ -15131,6 +15131,8 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="JP4" library="pinhead" deviceset="PINHD-1X2" device=""/>
+<part name="D2" library="diode" deviceset="1N4004" device=""/>
+<part name="JP5" library="pinhead" deviceset="PINHD-1X2" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15181,6 +15183,8 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <instance part="GND14" gate="1" x="10.16" y="53.34"/>
 <instance part="GND7" gate="1" x="17.78" y="53.34"/>
 <instance part="JP4" gate="G$1" x="30.48" y="71.12"/>
+<instance part="D2" gate="1" x="-2.54" y="86.36" rot="R180"/>
+<instance part="JP5" gate="G$1" x="43.18" y="71.12"/>
 </instances>
 <busses>
 </busses>
@@ -15421,6 +15425,9 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <wire x1="-45.72" y1="-40.64" x2="-45.72" y2="-48.26" width="0.1524" layer="91"/>
 <wire x1="-40.64" y1="73.66" x2="-40.64" y2="30.48" width="0.1524" layer="91"/>
 <junction x="-40.64" y="30.48"/>
+<pinref part="D2" gate="1" pin="C"/>
+<wire x1="-5.08" y1="86.36" x2="-25.4" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="-25.4" y1="86.36" x2="-25.4" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -15433,6 +15440,12 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <wire x1="17.78" y1="73.66" x2="10.16" y2="73.66" width="0.1524" layer="91"/>
 <junction x="10.16" y="73.66"/>
 <pinref part="JP4" gate="G$1" pin="1"/>
+<wire x1="10.16" y1="73.66" x2="10.16" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="D2" gate="1" pin="A"/>
+<wire x1="10.16" y1="86.36" x2="0" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="JP5" gate="G$1" pin="1"/>
+<wire x1="27.94" y1="73.66" x2="40.64" y2="73.66" width="0.1524" layer="91"/>
+<junction x="27.94" y="73.66"/>
 </segment>
 </net>
 </nets>
