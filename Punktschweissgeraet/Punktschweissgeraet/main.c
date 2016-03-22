@@ -6,7 +6,7 @@
 // LCD DEFINES
 #define LCD_IO_MODE   1
 #define LCD_PORT   PORTD
- 
+
 
 #define LCD_DATA0_PIN   5
 #define LCD_DATA1_PIN   4
@@ -42,6 +42,8 @@
 #define DISPLAY_LED PB0
 
 
+#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
+
 #include <avr/io.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
@@ -54,47 +56,111 @@
 #include "lcd-routines.h"
 #include "ExecCount.h"
 
-int main(void)
-{
- 
- //PINB |= (1<<PB1); //Invert PB4
+int main(void) {
+	
+	//PINB |= (1<<PB1); //Invert PB4
+	uint32_t c =0;
+	uint32_t execCount =0;
+	
+	
+	initPorts();
+	initADC();
+	initExecCount();
+	initLcd();
+	showWelcomeScreen();
+	showAllExecutions(getAllExecutions());
+	showLoading();
+	showIfBothCapActive (TRUE);
+	showVoltageHigh(32,2);
+	showVoltageLow(8,2);
+	
+	//bit0 = first large C, bit1= second large C, bit2= small c
+	uint8_t executeCapacitor = 0b1;
+	uint8_t isReady = TRUE;
+	
+	
 
- initPorts();  
- initADC();
- initExecCount();
- initLcd();
- showWelcomeScreen();
- showAllExecutions(getAllExecutions());
-
-   uint16_t c =0;
 	while (1){
-		c ++;
 		
-		if ( PINC & ( 1 << SWITCH ) ) {
+		//Check for switch:
+		if ( !(PINC & ( 1 << SWITCH )) && CHECK_BIT(executeCapacitor, 1)) {			
+			executeCapacitor &= ~(1<<1);
+			showIfBothCapActive(CHECK_BIT(executeCapacitor, 1));
 			
-			_delay_ms(1500);
+			} else if ( (PINC & ( 1<<SWITCH )) &&  !CHECK_BIT(executeCapacitor, 1)){
+			executeCapacitor |= (1<<1);					
+			showIfBothCapActive(CHECK_BIT(executeCapacitor, 1));							
 		}
-		if ( PINC & ( 1 << PC1 ) ) {
-			_delay_ms(1500);
-		}
-		_delay_ms(100);
-		PINB |= (1<<PB1); //Invert PB4
-		PINC |= (1<<PC5); //Invert PB4
 		
-		int volt = readADC();
+		//check for push
+		if ( ! (PINC & ( 1 << PUSH ))) {
+			if (isReady == TRUE){
+				  PORTB &= ~(1 << PB1);
+				execute(executeCapacitor);
+				showTodaysExecutions(++execCount);
+				isReady == FALSE;	
+               
+				c = 0;
+				showLoading();
+			} else{
+				
+			}			
+		}
+		
+		c += 1;
+		if (c > 100000){
+			PORTB |= (1 << PB1); 					
+			showReady();
+			isReady == TRUE;
+			c=0;
+		}
+		
+		//int volt = readADC();
 		//volt = 1000 * volt * 3900 / 560 ;
-		lcd_setcursor( 1, 2 ); 
-		char str[15];
-		sprintf(str, "%d mV", volt);
+		//lcd_setcursor( 1, 2 );
+		//char str[15];
+		//sprintf(str, "%d mV", volt);
 		//lcd_string(str );
 		
-	}
+		}
+	
 }
  
+void execute (uint8_t executeCapacitor){
+	
+	showFire();
+	
+	if (CHECK_BIT(executeCapacitor, 0)){
+ 
+		PINC |= (1<<PC5); //Invert PB4
+		_delay_ms(1500);
+ 
+		PINC |= (1<<PC5); //Invert PB4
+		_delay_ms(1500);
+	}
+	if (CHECK_BIT(executeCapacitor, 1)){
+ 
+		PINC |= (1<<PC5); //Invert PB4
+		_delay_ms(1500);
+	 
+		PINC |= (1<<PC5); //Invert PB4
+		_delay_ms(1500);
+	}
+	if (CHECK_BIT(executeCapacitor, 2)){
+ 
+		PINC |= (1<<PC5); //Invert PB4
+		_delay_ms(1500);
+	 
+		PINC |= (1<<PC5); //Invert PB4
+		_delay_ms(1500);
+	}
+	
+	
+}
 
 
 void initADC ( ) {
- 
+	
 	// ADC Configuration: Mux only for PB3, RefVoltage = Vcc, no left shift for 10bit accuracy.
 	ADMUX =
 	(0 << ADLAR) |

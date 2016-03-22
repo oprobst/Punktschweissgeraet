@@ -12,11 +12,11 @@
 #define GUI_H_
 
 #ifndef MSEC_INTRO
-#define MSEC_INTRO 2000
+#define MSEC_INTRO 0000
 #endif
 
 #ifndef MSEC_EXECUTIONS
-#define MSEC_EXECUTIONS 5000
+#define MSEC_EXECUTIONS 000
 #endif
 
 #ifndef DISPLAY_LED
@@ -49,7 +49,8 @@ void showLoading ();
 //Show ready message.
 void showReady ();
 
-
+//Show execution
+void showFire();
 
 
 #endif /* GUI_H_ */
