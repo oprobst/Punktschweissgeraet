@@ -15096,7 +15096,7 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <part name="C7" library="rcl" deviceset="C-EU" device="C0805" value="100nF"/>
 <part name="C8" library="rcl" deviceset="CPOL-EU" device="E5-13" value="1000µ"/>
 <part name="D3" library="diode" deviceset="1N4004" device=""/>
-<part name="R20" library="rcl" deviceset="R-EU_" device="R1206" value="100k"/>
+<part name="R20" library="rcl" deviceset="R-EU_" device="R1206" value="120"/>
 <part name="R21" library="pot" deviceset="TRIM_EU-" device="PT10"/>
 <part name="JP1" library="pinhead" deviceset="PINHD-1X2" device=""/>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
@@ -15110,7 +15110,7 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <part name="C1" library="rcl" deviceset="C-EU" device="C0805" value="100nF"/>
 <part name="C2" library="rcl" deviceset="CPOL-EU" device="E5-13" value="1000µ"/>
 <part name="D1" library="diode" deviceset="1N4004" device=""/>
-<part name="R1" library="rcl" deviceset="R-EU_" device="R1206" value="100k"/>
+<part name="R1" library="rcl" deviceset="R-EU_" device="R1206" value="120"/>
 <part name="R2" library="pot" deviceset="TRIM_EU-" device="PT10"/>
 <part name="JP2" library="pinhead" deviceset="PINHD-1X2" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
