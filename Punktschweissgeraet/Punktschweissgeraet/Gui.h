@@ -11,6 +11,10 @@
 #ifndef GUI_H_
 #define GUI_H_
 
+#ifndef DEBUG
+#define DEBUG 1
+#endif
+
 #ifndef MSEC_INTRO
 #define MSEC_INTRO 0000
 #endif
@@ -52,5 +56,7 @@ void showReady ();
 //Show execution
 void showFire();
 
+//Debug output
+void writeDebug (const char *data);
 
 #endif /* GUI_H_ */
