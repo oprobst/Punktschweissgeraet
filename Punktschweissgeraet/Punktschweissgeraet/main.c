@@ -3,6 +3,9 @@
 #define TRUE 1
 #define FALSE 0
 
+
+#define CHARGE_WAIT_TIME 3500
+
 // LCD DEFINES
 #define LCD_IO_MODE   1
 #define LCD_PORT   PORTD
@@ -23,22 +26,14 @@
 #define LCD_E_PIN   1
 
 // FURTHER IO
-#define LED_RED PB1
-#define LED_BLUE PC5
 #define BEEP PB2
 
-#define C1_FIRE PD7
-#define C2_FIRE PD6
-#define C3_FIRE PB4
 
 
 #define SWITCH PC0
 #define PUSH PC1
 
 #define DISPLAY_LED PB0
-
-
-#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
 #include <avr/io.h>
 #include <avr/sleep.h>
@@ -52,6 +47,8 @@
 #include "lcd-routines.h"
 #include "ExecCount.h"
 #include "MeasureVoltage.h"
+#include "Executor.h"
+#include "Calibation.h"
 
 int main(void) {
 	
@@ -60,21 +57,21 @@ int main(void) {
 	uint32_t d =1;
 	uint32_t execCount =0;
 	
-	
 	initPorts();
 	initADC();
 	initExecCount();
 	initLcd();
 	showWelcomeScreen();
 	showAllExecutions(getAllExecutions());
-	showLoading();
+	showLastCalibration(loadCap1(), loadCap2());
+	showReady();
 	showIfBothCapActive (TRUE);
 	showVoltageHigh(0,0);
 	showVoltageLow(0,0);
 	
+	
 	//bit0 = first large C, bit1= second large C, bit2= small c
 	uint8_t executeCapacitor = 0b1;
-	uint8_t isReady = TRUE;
 	
 	uint16_t firstMVoltDigit = 0;
 	uint16_t voltage = 0;
@@ -93,25 +90,13 @@ int main(void) {
 		
 		//check for push
 		if ( ! (PINC & ( 1 << PUSH ))) {
-			if (isReady == TRUE){
-				PORTC &= ~(1 << LED_BLUE);
-				execute(executeCapacitor);
-				showTodaysExecutions(++execCount);
-				isReady == FALSE;
-				
-				c = 0;
-				showLoading();
-				} else{
-				
-			}
-		}
-		
-		c += 1;
-		if (c > 1000){
-			PORTC |= (1 << LED_BLUE);
+			
+			fire();
+			showTodaysExecutions(++execCount);
+			
+			showLoading();
+			_delay_ms(CHARGE_WAIT_TIME);
 			showReady();
-			isReady == TRUE;
-			c=0;
 		}
 		
 		d -= 1;
@@ -127,13 +112,13 @@ int main(void) {
 			if (voltage <= 2){
 				executeCapacitor &= ~(0<<1);
 				executeCapacitor &= ~(1<<1);
-				executeCapacitor &= ~(2<<1);  //DELETEME				
-				 
-			} else {
+				executeCapacitor &= ~(2<<1);  //DELETEME
+				
+				} else {
 				executeCapacitor |= (0<<1);
 				executeCapacitor |= (1<<1);
 				executeCapacitor |= (2<<1);  //DELETEME
-			 
+				
 			}
 			
 			firstMVoltDigit = readCapVoltage(C2_VOLT) /100;
@@ -141,11 +126,11 @@ int main(void) {
 			firstMVoltDigit = firstMVoltDigit-(voltage*10);
 			showVoltageLow(voltage,firstMVoltDigit);
 			if (voltage <= 2){
-			 //  executeCapacitor &= ~(2<<1);  				
-			} else {
-			 //  executeCapacitor |= (2<<1);  
-		    }
-		
+				//  executeCapacitor &= ~(2<<1);
+				} else {
+				//  executeCapacitor |= (2<<1);
+			}
+			
 		}
 		
 	}
@@ -154,42 +139,14 @@ int main(void) {
 
 
 
-void execute (uint8_t executeCapacitor){
+void fire (uint8_t executeCapacitor){
 	
-	showFire();	
+	struct executionResult result;
+	execute(&result, executeCapacitor);
 
-	if (CHECK_BIT(executeCapacitor, 0)){
-		
-		PIND|= (1<<C1_FIRE);
-		PINB |= (1<<LED_RED);
-		_delay_ms(1500);
-		
-		PIND|= (1<<C1_FIRE);
-		PINB |= (1<<LED_RED);
-		_delay_ms(1500);
-	}
-	if (CHECK_BIT(executeCapacitor, 1)){
-		PIND|= (1<<C2_FIRE);
-		PINB |= (1<<LED_RED); //Invert PB4
-		_delay_ms(1500);
-		PIND|= (1<<C2_FIRE);
-		PINB |= (1<<LED_RED); //Invert PB4
-		_delay_ms(1500);
-	}
-	if (CHECK_BIT(executeCapacitor, 2)){
-			 
-		PINB|= (1<<C3_FIRE);
-		PINB |= (1<<LED_RED); //Invert PB4
-		_delay_ms(15);
-		PINB|= (1<<C3_FIRE);
-		PINB |= (1<<LED_RED); //Invert PB4
-
-	}
-	
-	PINB |= (1<<BEEP); //Invert PB4
-	_delay_ms(150);
-	
-	PINB |= (1<<BEEP); //Invert PB4
+	//simulate
+	showContact();
+	_delay_ms(300);
 
 
 	

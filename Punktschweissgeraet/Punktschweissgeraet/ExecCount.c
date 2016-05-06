@@ -10,16 +10,19 @@
 
 uint32_t overallCount = 0;
 uint16_t todayCount = 0;
+uint32_t EEMEM eeExecMem;
 
 void initExecCount (){
     eeprom_busy_wait();
 	overallCount = eeprom_read_dword(0);	
+	eeprom_busy_wait();
+	overallCount = eeprom_read_dword(&eeExecMem);
 }
 
 void addExecution (){
 	overallCount++;
 	todayCount++;
-	storeOverallExecutions();
+	  storeOverallExecutions();
 }
 uint32_t getAllExecutions(){
 	return overallCount;
@@ -29,6 +32,6 @@ uint16_t getTodaysExections(){
 }
 
 void storeOverallExecutions(){
-	eeprom_busy_wait();
-	eeprom_write_dword(0, overallCount);
+	  eeprom_busy_wait();
+	  eeprom_update_dword((uint32_t*) &eeExecMem, overallCount);
 }

@@ -20,11 +20,23 @@
 #endif
 
 #ifndef MSEC_EXECUTIONS
-#define MSEC_EXECUTIONS 000
+#define MSEC_EXECUTIONS 3000
+#endif
+
+#ifndef MSEC_CALIBRATION
+#define MSEC_CALIBRATION 3000
 #endif
 
 #ifndef DISPLAY_LED
 #define DISPLAY_LED PB0
+#endif
+
+#ifndef LED_RED
+#define LED_RED PB1
+#endif
+
+#ifndef LED_BLUE
+#define LED_BLUE PC5
 #endif
 
 //delegate to init of lcd driver
@@ -36,11 +48,15 @@ void showWelcomeScreen();
 // Full screen with all executions
 void showAllExecutions(uint32_t count);
 
+//show result of last calibration
+void showLastCalibration (float cap1, float cap2);
+
 // Amount of executions since last start
 void showTodaysExecutions(uint16_t count);
 
 //Show voltage of small cap
 void showVoltageLow (uint8_t volt, uint8_t mvolt);
+
 //Show voltage of high cat
 void showVoltageHigh (uint8_t volt, uint8_t mvolt);
 
@@ -50,13 +66,25 @@ void showIfBothCapActive (uint8_t isSecondActive);
 // Show loading capacitor message
 void showLoading ();
 
-//Show ready message.
-void showReady ();
+//Show contact measurement message.
+void showContact ();
 
 //Show execution
 void showFire();
 
+//The calculated resistance of the last execution
+void showOhm(float ohm);
+
+// The calculated amperes drawn in the last execution
+void showAmpere (float ampere);
+
 //Debug output
 void writeDebug (const char *data);
+
+//Display calibration is in progress
+void showCalibration ();
+
+//Display Capacity for 5 sec.
+void showCapacity (float cap1, float cap2);
 
 #endif /* GUI_H_ */
