@@ -29,7 +29,7 @@ void showAllExecutions(uint32_t count){
 	lcd_string("Ausloesungen:");
 	lcd_setcursor( 0, 2 );
 	char str[16];
-	sprintf(str, "%d", count);
+	sprintf(str, "%lu", count);
 	lcd_string(str );
 	_delay_ms (MSEC_EXECUTIONS);
 	lcd_clear();
@@ -39,51 +39,43 @@ void showLastCalibration(float cap1, float cap2){
 	char str[16];
 	lcd_clear();
 	lcd_setcursor( 0, 1 );
-	sprintf(str, "C1: %f mF", cap1);
+	sprintf(str, "C1: %7.3f mF", cap1);
 	lcd_string(str );
 	
 	lcd_setcursor( 0, 2 );	
-	sprintf(str, "C2: %f mF", cap2);
+	sprintf(str, "C2: %7.3f mF", cap2);
 	lcd_string(str );
-	_delay_ms (MSEC_EXECUTIONS);
+	_delay_ms (MSEC_CALIBRATION);
 	lcd_clear();
 }
 
 
 
 void showTodaysExecutions(uint16_t count){
-	char str[5];
-	sprintf(str, "%d", count);
-	lcd_setcursor( 0, 2  );
+	char str[3];
+	sprintf(str, "%03d", count);
+	lcd_setcursor( 0, 1  );
 	lcd_string(str );
 }
 
-void showVoltage (uint8_t volt, uint8_t mvolt, uint8_t row){
+void showVoltage (float volt, uint8_t row){
 	lcd_setcursor(  11, row );
 	if (volt <= 2){
-		
 		lcd_string(" OFF ");
-    } else {
-		char str[5];
-		sprintf(str, "%d", volt);
-		if (volt <10){
-			lcd_string(" ");
-		}
-		
-		lcd_string(str );
-		sprintf(str, ",%dV", mvolt);
-		lcd_setcursor( 13, row );
-		lcd_string(str );
+    } else {		
+		char c[5];
+		sprintf(c, "%4.1fV",volt);	
+		lcd_string(c);
 	}
 }
 
-void showVoltageLow (uint8_t volt, uint8_t mvolt){
-	showVoltage(volt, mvolt, 1);
+void showVoltageLow (float volt){
+	showVoltage(volt,  1);
 }
 
 
-void showVoltageHigh (uint8_t volt, uint8_t mvolt){
-	showVoltage(volt, mvolt, 2);
+void showVoltageHigh (float volt){
+	showVoltage(volt,  2);
 }
 
 
@@ -122,16 +114,24 @@ void writeDebug (const char *data ){
 void showOhm(float ohm){
 	lcd_setcursor(0, 2);
 	char c[5]; 
-	sprintf(c, "%.2fmO", (ohm*1000));
+	sprintf(c, "%.2fm\364", (ohm*1000));
 	lcd_string(c); 
-}
-
- 
+} 
 
 void showAmpere (float ampere){
-	lcd_setcursor(5, 1);
+	lcd_setcursor(4, 1);
 	char c[5];
 	sprintf(c, "%.2f", (ampere/1000));
 	lcd_string(c); 
     lcd_string("kA");
+}
+
+void showCalibration (double time){
+	char str[16];
+	lcd_clear();
+	lcd_setcursor( 0, 1 );	 
+	lcd_string("Calibration..." );	
+	lcd_setcursor( 0, 2 );
+	sprintf(str, "for %.0lf sec.", (time/1000));
+	lcd_string(str);
 }

@@ -4,7 +4,9 @@
 #define FALSE 0
 
 
-#define CHARGE_WAIT_TIME 3500
+#define CHARGE_WAIT_TIME 3500 //ms
+
+#define TIME_TO_PUSH_FOR_CALIBRATION 5000 //ms
 
 // LCD DEFINES
 #define LCD_IO_MODE   1
@@ -63,18 +65,19 @@ int main(void) {
 	initLcd();
 	showWelcomeScreen();
 	showAllExecutions(getAllExecutions());
-	showLastCalibration(loadCap1(), loadCap2());
+	//showLastCalibration(loadCap1(), loadCap2());
 	showReady();
 	showIfBothCapActive (TRUE);
-	showVoltageHigh(0,0);
-	showVoltageLow(0,0);
-	
+	showVoltageHigh(0);
+	showVoltageLow(0);
+	showTodaysExecutions(0);
+	showOhm (0.014291);
+	showAmpere (1201.213);
 	
 	//bit0 = first large C, bit1= second large C, bit2= small c
 	uint8_t executeCapacitor = 0b1;
 	
-	uint16_t firstMVoltDigit = 0;
-	uint16_t voltage = 0;
+	
 
 	while (1){
 		
@@ -91,23 +94,36 @@ int main(void) {
 		//check for push
 		if ( ! (PINC & ( 1 << PUSH ))) {
 			
-			fire();
-			showTodaysExecutions(++execCount);
-			
-			showLoading();
-			_delay_ms(CHARGE_WAIT_TIME);
-			showReady();
+			uint16_t count = 0;
+			while ( ! (PINC & ( 1 << PUSH ))){
+				count++;
+				_delay_ms(1);
+				if (count > TIME_TO_PUSH_FOR_CALIBRATION){
+					break;
+				}
+			}
+			if (count > TIME_TO_PUSH_FOR_CALIBRATION){
+				// all cap off! Start calibration.
+				showLoading();
+				calibrate();
+				//showLastCalibration();
+				showReady();
+				} else {
+				fire();
+				showTodaysExecutions(++execCount);
+				
+				showLoading();
+				_delay_ms(CHARGE_WAIT_TIME);
+				showReady();
+			}
 		}
 		
 		d -= 1;
 		if (d == 0){
 			
 			d=10;
-			
-			firstMVoltDigit = readCapVoltage(C1_VOLT) /100;
-			voltage = firstMVoltDigit/10;
-			firstMVoltDigit = firstMVoltDigit-(voltage*10);
-			showVoltageHigh(voltage,firstMVoltDigit);
+			float voltage =  readCapVoltage(C1_VOLT);
+			showVoltageHigh(voltage);
 			
 			if (voltage <= 2){
 				executeCapacitor &= ~(0<<1);
@@ -121,13 +137,12 @@ int main(void) {
 				
 			}
 			
-			firstMVoltDigit = readCapVoltage(C2_VOLT) /100;
-			voltage = firstMVoltDigit/10;
-			firstMVoltDigit = firstMVoltDigit-(voltage*10);
-			showVoltageLow(voltage,firstMVoltDigit);
+			voltage = readCapVoltage(C2_VOLT);
+			showVoltageLow(voltage);
 			if (voltage <= 2){
 				//  executeCapacitor &= ~(2<<1);
 				} else {
+				
 				//  executeCapacitor |= (2<<1);
 			}
 			

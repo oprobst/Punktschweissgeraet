@@ -10,33 +10,43 @@
 #include "MeasureVoltage.h"
 #include <stdint.h>
 #include <avr/eeprom.h>
+#include <util/delay.h>
 
-#define CALIBRATION_DURATION 60000 //ms
-#define CALIBRATION_RESISTOR 22000 //ohm
+#define CALIBRATION_DURATION 300000.0d //ms
+#define CALIBRATION_RESISTOR 3956.0f //ohm
 
 float EEMEM eeCap1Mem;
 float EEMEM eeCap2Mem;
 
-float calculateCap (uint16_t start, uint16_t end){
-	return 0.0d;
+double calculateCap (float start, float end){
+	if (start == 0 || end == 0 ){
+		return -1;
+	}
+	if (log(end/start) == 0){
+		return -2;
+	}
+	return ((CALIBRATION_DURATION * -1) / CALIBRATION_RESISTOR) / log(end/start);	
 }
 
 void calibrate() {
 	
-	showCalibration ();
-	uint16_t mvC1Start = readCapVoltage(0);
-	uint16_t mvC2Start = readCapVoltage(1);
+	showCalibration (CALIBRATION_DURATION);
+	float mvC1Start = readCapVoltage(C1_VOLT);
+	float mvC2Start = readCapVoltage(C2_VOLT);
 	_delay_ms(CALIBRATION_DURATION);
-	uint16_t mvC1End = readCapVoltage(0);
-	uint16_t mvC2End = readCapVoltage(1);
+	float mvC1End = readCapVoltage(C1_VOLT);
+	float mvC2End = readCapVoltage(C2_VOLT);
 		
+  
   
 	float cap1 = calculateCap(mvC1Start, mvC1End);
 	float cap2 = calculateCap(mvC2Start, mvC2End);
 	
-	showCapacity(cap1, cap2);
+	showLastCalibration(mvC1Start, mvC1End);
 	
-	storeCap (cap1, cap2);
+	showLastCalibration(cap1, cap1);
+	
+	//storeCap (cap1, cap2);
 }
 
 

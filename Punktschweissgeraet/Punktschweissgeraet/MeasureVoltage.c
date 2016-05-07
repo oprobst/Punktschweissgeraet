@@ -95,10 +95,9 @@ uint16_t readADC (volatile uint8_t channel) {
 	return readADCsamples(3);
 }
 
-// Return the voltage at capacitor in mVolt
-uint16_t readCapVoltage(volatile uint8_t number){
-	//return readSingleADC();
+// Return the voltage at capacitor in Volt
+float readCapVoltage(volatile uint8_t number){
 	uint16_t volt = readADC(number);
-	return ((uint16_t) (((float) volt) * ADC_FACTOR * 1000));
+	return ((float) volt) * ADC_FACTOR;
 }
 

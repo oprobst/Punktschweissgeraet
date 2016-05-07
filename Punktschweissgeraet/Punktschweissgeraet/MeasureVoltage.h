@@ -20,7 +20,7 @@
 
 void initADC ();
 
-uint16_t readCapVoltage(volatile uint8_t number);
+float readCapVoltage(volatile uint8_t number);
 
 
 #endif /* MEASUREVOLTAGE_H_ */

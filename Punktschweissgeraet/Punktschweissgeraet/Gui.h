@@ -24,7 +24,7 @@
 #endif
 
 #ifndef MSEC_CALIBRATION
-#define MSEC_CALIBRATION 3000
+#define MSEC_CALIBRATION 25000
 #endif
 
 #ifndef DISPLAY_LED
@@ -55,10 +55,10 @@ void showLastCalibration (float cap1, float cap2);
 void showTodaysExecutions(uint16_t count);
 
 //Show voltage of small cap
-void showVoltageLow (uint8_t volt, uint8_t mvolt);
+void showVoltageLow (float volt);
 
 //Show voltage of high cat
-void showVoltageHigh (uint8_t volt, uint8_t mvolt);
+void showVoltageHigh (float volt);
 
 //Show if both big caps are fired. 1=true, other = false
 void showIfBothCapActive (uint8_t isSecondActive);
@@ -82,7 +82,7 @@ void showAmpere (float ampere);
 void writeDebug (const char *data);
 
 //Display calibration is in progress
-void showCalibration ();
+void showCalibration (double time);
 
 //Display Capacity for 5 sec.
 void showCapacity (float cap1, float cap2);

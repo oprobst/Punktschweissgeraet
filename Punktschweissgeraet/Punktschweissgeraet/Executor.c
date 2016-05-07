@@ -32,7 +32,7 @@ void execute (ExecutionResult *result, uint8_t executeCapacitor){
 	 mvC1Start = readCapVoltage(0);
 	 PORTB |= (CHECK_BIT(executeCapacitor, 0)<< PB4);
 	 _delay_ms(LOW_EXEC_TIME);
-	 PORTB &= ~(0<< PB4);
+	 PORTB &= ~(1<< PB4);
 	 mvC1End = readCapVoltage(0);
 	 
 	 _delay_ms(BREAK_TIME);
@@ -40,7 +40,7 @@ void execute (ExecutionResult *result, uint8_t executeCapacitor){
 	 mvC2Start = readCapVoltage(1);
 	 PORTD |= (CHECK_BIT(executeCapacitor, 1) << PD6 | CHECK_BIT(executeCapacitor, 2) << PD7);
 	 _delay_ms(HIGH_EXEC_TIME);
-	 PORTD &= ~(0<< PD6 | 0 << PD7);
+	 PORTD &= ~(1 << PD6 | 1 << PD7);
 	 mvC2End = readCapVoltage(1);
 
 	 result->voltageUsedC1 = mvC1Start - mvC1End;
