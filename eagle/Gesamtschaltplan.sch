@@ -25642,7 +25642,6 @@ Distributor Buerklin, 11G810</description>
 <part name="R27" library="rcl" deviceset="R-EU_" device="R1206" value="10R"/>
 <part name="R22" library="rcl" deviceset="R-EU_" device="R1206" value="50k"/>
 <part name="GND52" library="supply1" deviceset="GND" device=""/>
-<part name="R28" library="rcl" deviceset="R-EU_" device="R1206" value="22k 1W"/>
 <part name="R29" library="pot" deviceset="TRIM_EU-" device="PT10"/>
 <part name="R30" library="pot" deviceset="TRIM_EU-" device="PT10"/>
 <part name="Q8" library="transistor-power" deviceset="PMOSFET_N" device="TO220BH" value="AUIRF8409"/>
@@ -25660,7 +25659,6 @@ Distributor Buerklin, 11G810</description>
 <part name="R36" library="rcl" deviceset="R-EU_" device="R1206" value="10R"/>
 <part name="R37" library="rcl" deviceset="R-EU_" device="R1206" value="10R"/>
 <part name="R38" library="rcl" deviceset="R-EU_" device="R1206" value="50k"/>
-<part name="R39" library="rcl" deviceset="R-EU_" device="R1206" value="22k 1W"/>
 <part name="C27" library="rcl" deviceset="CPOL-EU" device="E5-9VAXIAL" value="47000 uF"/>
 <part name="C29" library="rcl" deviceset="CPOL-EU" device="E5-9VAXIAL" value="100000uF"/>
 <part name="D8" library="diode" deviceset="1N4004" device=""/>
@@ -25681,7 +25679,6 @@ Distributor Buerklin, 11G810</description>
 <part name="R45" library="rcl" deviceset="R-EU_" device="R1206" value="10"/>
 <part name="R46" library="rcl" deviceset="R-EU_" device="R1206" value="10"/>
 <part name="R47" library="rcl" deviceset="R-EU_" device="R1206" value="50k"/>
-<part name="R48" library="rcl" deviceset="R-EU_" device="R1206" value="22k 1W"/>
 <part name="C28" library="rcl" deviceset="CPOL-EU" device="E5-9VAXIAL" value="100000uF"/>
 <part name="D7" library="diode" deviceset="1N4004" device=""/>
 <part name="GND54" library="supply1" deviceset="GND" device=""/>
@@ -25938,7 +25935,6 @@ versorgungsmodul</text>
 <instance part="R27" gate="G$1" x="66.04" y="-154.94" rot="R180"/>
 <instance part="R22" gate="G$1" x="76.2" y="-165.1" rot="R270"/>
 <instance part="GND52" gate="1" x="76.2" y="-175.26"/>
-<instance part="R28" gate="G$1" x="66.04" y="-91.44" rot="R180"/>
 <instance part="R29" gate="1" x="30.48" y="-154.94" rot="R180"/>
 <instance part="R30" gate="1" x="30.48" y="-233.68" rot="R180"/>
 <instance part="Q8" gate="G$1" x="111.76" y="-101.6" rot="R90"/>
@@ -25956,7 +25952,6 @@ versorgungsmodul</text>
 <instance part="R36" gate="G$1" x="127" y="-167.64" rot="R180"/>
 <instance part="R37" gate="G$1" x="127" y="-180.34" rot="R180"/>
 <instance part="R38" gate="G$1" x="142.24" y="-190.5" rot="R270"/>
-<instance part="R39" gate="G$1" x="127" y="-91.44" rot="R180"/>
 <instance part="C27" gate="G$1" x="63.5" y="-81.28" rot="R90"/>
 <instance part="C29" gate="G$1" x="124.46" y="-81.28" rot="R90"/>
 <instance part="D8" gate="1" x="43.18" y="-76.2" rot="R270"/>
@@ -25977,7 +25972,6 @@ versorgungsmodul</text>
 <instance part="R45" gate="G$1" x="190.5" y="-167.64" rot="R180"/>
 <instance part="R46" gate="G$1" x="190.5" y="-180.34" rot="R180"/>
 <instance part="R47" gate="G$1" x="205.74" y="-190.5" rot="R270"/>
-<instance part="R48" gate="G$1" x="190.5" y="-91.44" rot="R180"/>
 <instance part="C28" gate="G$1" x="187.96" y="-81.28" rot="R90"/>
 <instance part="D7" gate="1" x="165.1" y="-68.58" rot="R270"/>
 <instance part="GND54" gate="1" x="205.74" y="-200.66"/>
@@ -26451,26 +26445,17 @@ versorgungsmodul</text>
 <wire x1="129.54" y1="-81.28" x2="149.86" y2="-81.28" width="0.1524" layer="91"/>
 <wire x1="149.86" y1="-81.28" x2="149.86" y2="-91.44" width="0.1524" layer="91"/>
 <wire x1="149.86" y1="-91.44" x2="149.86" y2="-203.2" width="0.1524" layer="91"/>
-<junction x="149.86" y="-91.44"/>
-<pinref part="R39" gate="G$1" pin="1"/>
-<wire x1="132.08" y1="-91.44" x2="149.86" y2="-91.44" width="0.1524" layer="91"/>
 <pinref part="C28" gate="G$1" pin="-"/>
 <wire x1="193.04" y1="-81.28" x2="213.36" y2="-81.28" width="0.1524" layer="91"/>
 <wire x1="213.36" y1="-81.28" x2="213.36" y2="-91.44" width="0.1524" layer="91"/>
 <wire x1="213.36" y1="-91.44" x2="213.36" y2="-208.28" width="0.1524" layer="91"/>
 <wire x1="213.36" y1="-208.28" x2="157.48" y2="-208.28" width="0.1524" layer="91"/>
-<pinref part="R48" gate="G$1" pin="1"/>
-<wire x1="195.58" y1="-91.44" x2="213.36" y2="-91.44" width="0.1524" layer="91"/>
-<junction x="213.36" y="-91.44"/>
 <wire x1="93.98" y1="-226.06" x2="93.98" y2="-208.28" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="-208.28" x2="93.98" y2="-203.2" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="-203.2" x2="93.98" y2="-91.44" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="-91.44" x2="93.98" y2="-81.28" width="0.1524" layer="91"/>
 <wire x1="68.58" y1="-81.28" x2="86.36" y2="-81.28" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="-81.28" x2="93.98" y2="-81.28" width="0.1524" layer="91"/>
-<pinref part="R28" gate="G$1" pin="1"/>
-<wire x1="71.12" y1="-91.44" x2="93.98" y2="-91.44" width="0.1524" layer="91"/>
-<junction x="93.98" y="-91.44"/>
 <pinref part="C27" gate="G$1" pin="-"/>
 <wire x1="157.48" y1="-208.28" x2="149.86" y2="-208.28" width="0.1524" layer="91"/>
 <junction x="93.98" y="-208.28"/>
@@ -27102,9 +27087,6 @@ versorgungsmodul</text>
 <wire x1="43.18" y1="-99.06" x2="43.18" y2="-109.22" width="0.1524" layer="91"/>
 <junction x="43.18" y="-99.06"/>
 <wire x1="43.18" y1="-99.06" x2="43.18" y2="-91.44" width="0.1524" layer="91"/>
-<pinref part="R28" gate="G$1" pin="2"/>
-<wire x1="60.96" y1="-91.44" x2="43.18" y2="-91.44" width="0.1524" layer="91"/>
-<junction x="43.18" y="-91.44"/>
 <wire x1="43.18" y1="-91.44" x2="43.18" y2="-88.9" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="-81.28" x2="43.18" y2="-88.9" width="0.1524" layer="91"/>
 <junction x="43.18" y="-81.28"/>
@@ -27748,10 +27730,7 @@ versorgungsmodul</text>
 <pinref part="C29" gate="G$1" pin="+"/>
 <wire x1="101.6" y1="-91.44" x2="101.6" y2="-81.28" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="-81.28" x2="111.76" y2="-81.28" width="0.1524" layer="91"/>
-<pinref part="R39" gate="G$1" pin="2"/>
 <wire x1="111.76" y1="-81.28" x2="121.92" y2="-81.28" width="0.1524" layer="91"/>
-<wire x1="121.92" y1="-91.44" x2="101.6" y2="-91.44" width="0.1524" layer="91"/>
-<junction x="101.6" y="-91.44"/>
 <wire x1="101.6" y1="-71.12" x2="101.6" y2="-81.28" width="0.1524" layer="91"/>
 <junction x="101.6" y="-81.28"/>
 <pinref part="D9" gate="1" pin="C"/>
@@ -27892,10 +27871,7 @@ versorgungsmodul</text>
 <pinref part="C28" gate="G$1" pin="+"/>
 <wire x1="165.1" y1="-91.44" x2="165.1" y2="-81.28" width="0.1524" layer="91"/>
 <wire x1="165.1" y1="-81.28" x2="172.72" y2="-81.28" width="0.1524" layer="91"/>
-<pinref part="R48" gate="G$1" pin="2"/>
 <wire x1="172.72" y1="-81.28" x2="185.42" y2="-81.28" width="0.1524" layer="91"/>
-<wire x1="185.42" y1="-91.44" x2="165.1" y2="-91.44" width="0.1524" layer="91"/>
-<junction x="165.1" y="-91.44"/>
 <wire x1="165.1" y1="-71.12" x2="165.1" y2="-81.28" width="0.1524" layer="91"/>
 <junction x="165.1" y="-81.28"/>
 <pinref part="D7" gate="1" pin="C"/>
