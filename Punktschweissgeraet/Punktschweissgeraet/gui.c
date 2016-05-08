@@ -129,6 +129,7 @@ void showAmpere (float ampere){
 void showCalibration (double time){
 	char str[16];
 	lcd_clear();
+	_delay_ms(20);
 	lcd_setcursor( 0, 1 );	 
 	lcd_string("Calibration..." );	
 	lcd_setcursor( 0, 2 );

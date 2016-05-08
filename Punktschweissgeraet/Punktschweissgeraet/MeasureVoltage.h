@@ -16,7 +16,7 @@
 
 #define CONTACT PC2
 
-#define ADC_FACTOR  0.0375f
+#define ADC_FACTOR  0.038f
 
 void initADC ();
 

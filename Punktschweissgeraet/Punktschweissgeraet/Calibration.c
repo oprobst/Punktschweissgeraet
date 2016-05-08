@@ -8,15 +8,19 @@
 #include "Calibation.h"
 #include "Gui.h"
 #include "MeasureVoltage.h"
-#include <stdint.h>
-#include <avr/eeprom.h>
-#include <util/delay.h>
 
-#define CALIBRATION_DURATION 300000.0d //ms
+#include <avr/eeprom.h>
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <stdint.h>
+
+#define CALIBRATION_DURATION 120000 //ms
 #define CALIBRATION_RESISTOR 3956.0f //ohm
 
 float EEMEM eeCap1Mem;
 float EEMEM eeCap2Mem;
+
+volatile uint32_t msPassed;
 
 double calculateCap (float start, float end){
 	if (start == 0 || end == 0 ){
@@ -33,10 +37,10 @@ void calibrate() {
 	showCalibration (CALIBRATION_DURATION);
 	float mvC1Start = readCapVoltage(C1_VOLT);
 	float mvC2Start = readCapVoltage(C2_VOLT);
-	_delay_ms(CALIBRATION_DURATION);
+	startTimer();
 	float mvC1End = readCapVoltage(C1_VOLT);
 	float mvC2End = readCapVoltage(C2_VOLT);
-		
+    stopTimer();
   
   
 	float cap1 = calculateCap(mvC1Start, mvC1End);
@@ -47,6 +51,30 @@ void calibrate() {
 	showLastCalibration(cap1, cap1);
 	
 	//storeCap (cap1, cap2);
+}
+
+
+void startTimer(){
+  msPassed =0;
+  TCCR0A = (1<<WGM01); 
+  TCCR0B |= ((1<<CS01) | (1<<CS00)); //prescaler 64
+  OCR0A = 250-1; // (16,000,000/64)/1000
+  TIMSK0 |= (1<<OCIE0A);
+  sei(); 
+  while (msPassed < CALIBRATION_DURATION){
+	  
+  }
+}
+
+void stopTimer (){
+	cli();	
+}
+ISR (TIMER0_COMPA_vect)
+{
+	msPassed++;	
+	if (msPassed %10000 == 0){
+		showCalibration (CALIBRATION_DURATION - msPassed);
+	}
 }
 
 

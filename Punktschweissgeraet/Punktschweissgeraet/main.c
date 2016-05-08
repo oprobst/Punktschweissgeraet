@@ -1,4 +1,4 @@
-#define F_CPU 1000000UL //16 MHz
+#define F_CPU 16000000UL //16 MHz
 
 #define TRUE 1
 #define FALSE 0

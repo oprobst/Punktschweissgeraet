@@ -98,6 +98,10 @@ uint16_t readADC (volatile uint8_t channel) {
 // Return the voltage at capacitor in Volt
 float readCapVoltage(volatile uint8_t number){
 	uint16_t volt = readADC(number);
-	return ((float) volt) * ADC_FACTOR;
+	float zdiode_corr = 0;
+	if (volt > 430){
+		zdiode_corr = pow((volt-430),2.2)/200000000;
+	}
+	return ((float) volt) * (ADC_FACTOR + zdiode_corr);
 }
 
