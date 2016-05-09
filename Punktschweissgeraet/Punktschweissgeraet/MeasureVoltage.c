@@ -1,7 +1,7 @@
  
 #include "MeasureVoltage.h"
 #include <stdint.h>
-#include <util/delay.h>
+
 #include <avr/io.h>
 
 
@@ -92,7 +92,7 @@ uint16_t readADC (volatile uint8_t channel) {
 			(0 << MUX0);
 	}
 	readSingleADC ();
-	return readADCsamples(3);
+	return readADCsamples(1);
 }
 
 // Return the voltage at capacitor in Volt

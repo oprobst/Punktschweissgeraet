@@ -4,7 +4,7 @@
 #define FALSE 0
 
 
-#define CHARGE_WAIT_TIME 3500 //ms
+#define CHARGE_WAIT_TIME 500 //ms
 
 #define TIME_TO_PUSH_FOR_CALIBRATION 5000 //ms
 
@@ -63,16 +63,16 @@ int main(void) {
 	initADC();
 	initExecCount();
 	initLcd();
-	showWelcomeScreen();
-	showAllExecutions(getAllExecutions());
+	//showWelcomeScreen();
+	//showAllExecutions(getAllExecutions());
 	//showLastCalibration(loadCap1(), loadCap2());
 	showReady();
 	showIfBothCapActive (TRUE);
 	showVoltageHigh(0);
 	showVoltageLow(0);
 	showTodaysExecutions(0);
-	showOhm (0.014291);
-	showAmpere (1201.213);
+	showOhm (0.0);
+	showAmpere (0.0);
 	
 	//bit0 = first large C, bit1= second large C, bit2= small c
 	uint8_t executeCapacitor = 0b1;
@@ -106,9 +106,8 @@ int main(void) {
 				// all cap off! Start calibration.
 				showLoading();
 				calibrate();
-				//showLastCalibration();
 				showReady();
-				} else {
+		    } else {
 				fire();
 				showTodaysExecutions(++execCount);
 				
@@ -156,14 +155,15 @@ int main(void) {
 
 void fire (uint8_t executeCapacitor){
 	
+	//simulate
+	showContact();	
+	
 	struct executionResult result;
 	execute(&result, executeCapacitor);
 
-	//simulate
-	showContact();
-	_delay_ms(300);
-
-
+    
+    showOhm(result.ohmC1);
+    showAmpere(result.ampereC1);
 	
 }
 

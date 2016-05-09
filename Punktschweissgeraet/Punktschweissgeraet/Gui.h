@@ -24,7 +24,7 @@
 #endif
 
 #ifndef MSEC_CALIBRATION
-#define MSEC_CALIBRATION 25000
+#define MSEC_CALIBRATION 2000
 #endif
 
 #ifndef DISPLAY_LED
@@ -83,6 +83,9 @@ void writeDebug (const char *data);
 
 //Display calibration is in progress
 void showCalibration (double time);
+
+//faster display update, just change sec value
+void showUpdateCalibration (double time);
 
 //Display Capacity for 5 sec.
 void showCapacity (float cap1, float cap2);

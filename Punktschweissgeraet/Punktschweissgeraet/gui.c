@@ -1,3 +1,4 @@
+#define F_CPU 16000000UL //16 MHz
 #include "Gui.h"
 #include <stdint.h>
 #include <util/delay.h>
@@ -113,26 +114,60 @@ void writeDebug (const char *data ){
 
 void showOhm(float ohm){
 	lcd_setcursor(0, 2);
-	char c[5]; 
-	sprintf(c, "%.2fm\364", (ohm*1000));
-	lcd_string(c); 
+	lcd_string("      ");
+	if(ohm <= 0.0){
+		return;
+	}
+	lcd_setcursor(0, 2);
+	if (ohm > 999){
+		lcd_string(">999\364");
+	} else if (ohm > 0.00999){
+	     char c[16];
+	     sprintf(c, "%.0f\364", ohm);
+	     lcd_string(c);
+	} else {	 
+      char c[16];
+	  sprintf(c, "%.2fm\364", (ohm*1000));
+	  lcd_string(c);
+	}
+	 
 } 
 
 void showAmpere (float ampere){
 	lcd_setcursor(4, 1);
+	lcd_string("     ");
+	lcd_setcursor(4, 1);
+	if (ampere < 1){
+		char c[5];
+		sprintf(c, "%.0f", ampere * 1000);
+		lcd_string(c);
+		lcd_string("mA");
+	} else if (ampere < 1000){
+		char c[5];
+		sprintf(c, "%.0f", ampere);
+		lcd_string(c);
+		lcd_string("A");    	
+	} else {				
 	char c[5];
 	sprintf(c, "%.2f", (ampere/1000));
 	lcd_string(c); 
     lcd_string("kA");
+    }
 }
 
 void showCalibration (double time){
 	char str[16];
 	lcd_clear();
-	_delay_ms(20);
 	lcd_setcursor( 0, 1 );	 
-	lcd_string("Calibration..." );	
+	lcd_string("Kalibiervorgang" );	
 	lcd_setcursor( 0, 2 );
-	sprintf(str, "for %.0lf sec.", (time/1000));
+	sprintf(str, "noch %.0lf sek.", (time/1000));
+	lcd_string(str);
+}
+
+void showUpdateCalibration (double time){
+	char str[16];
+	lcd_setcursor( 5, 2 );
+	sprintf(str, "%.0lf sek.", (time/1000));
 	lcd_string(str);
 }
