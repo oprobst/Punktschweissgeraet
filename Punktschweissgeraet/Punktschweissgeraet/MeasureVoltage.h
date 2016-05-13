@@ -11,10 +11,10 @@
 
 #include <stdint.h>
 
-#define C1_VOLT PC4
-#define C2_VOLT PC3
+#define C1_VOLT 1
+#define C2_VOLT 2
 
-#define CONTACT PC2
+#define CONTACT 3
 
 #define ADC_FACTOR  0.038f
 

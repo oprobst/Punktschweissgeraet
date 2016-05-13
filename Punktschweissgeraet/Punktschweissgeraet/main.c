@@ -27,9 +27,6 @@
 #define LCD_E_PORT   PORTD
 #define LCD_E_PIN   1
 
-// FURTHER IO
-#define BEEP PB2
-
 
 
 #define SWITCH PC0
@@ -58,6 +55,7 @@ int main(void) {
 	uint32_t c =0;
 	uint32_t d =1;
 	uint32_t execCount =0;
+	int8_t enable = FALSE;
 	
 	initPorts();
 	initADC();
@@ -65,7 +63,7 @@ int main(void) {
 	initLcd();
 	//showWelcomeScreen();
 	//showAllExecutions(getAllExecutions());
-	//showLastCalibration(loadCap1(), loadCap2());
+	//	showLastCalibration(loadCap1(), loadCap2());
 	showReady();
 	showIfBothCapActive (TRUE);
 	showVoltageHigh(0);
@@ -77,20 +75,53 @@ int main(void) {
 	//bit0 = first large C, bit1= second large C, bit2= small c
 	uint8_t executeCapacitor = 0b1;
 	
-	
+	uint8_t executeBoth = (PINC & ( 1 << SWITCH ));
+	showIfBothCapActive(executeBoth);
 
 	while (1){
 		
 		//Check for switch:
-		if ( !(PINC & ( 1 << SWITCH )) && CHECK_BIT(executeCapacitor, 1)) {
-			executeCapacitor &= ~(1<<1);
-			showIfBothCapActive(CHECK_BIT(executeCapacitor, 1));
-			
-			} else if ( (PINC & ( 1<<SWITCH )) &&  !CHECK_BIT(executeCapacitor, 1)){
-			executeCapacitor |= (1<<1);
-			showIfBothCapActive(CHECK_BIT(executeCapacitor, 1));
+		if ( !(PINC & ( 1 << SWITCH))  && executeBoth == TRUE  ) {
+			executeBoth = FALSE;
+			showIfBothCapActive(executeBoth);
+			} else if ( (PINC & ( 1 << SWITCH ))&& executeBoth == FALSE ){ //
+			executeBoth = TRUE;
+			showIfBothCapActive(executeBoth);
 		}
 		
+		if (readCapVoltage(CONTACT) < 5.0){
+			enable = TRUE;
+			showContact();
+			} else {
+			enable = FALSE;
+			showReady();
+		}
+				
+		float voltage =  readCapVoltage(C1_VOLT);
+		showVoltageHigh(voltage);
+		if(1){
+		
+		if (voltage <= 1 || enable == FALSE){
+			executeCapacitor &= ~(1<<0);
+			executeCapacitor &= ~(1<<1);
+		} else {
+			executeCapacitor |= (1<<0);
+			if (executeBoth == TRUE){
+				executeCapacitor |= (1<<1);
+			} else {
+				executeCapacitor &= ~(1<<1);
+			}
+		}
+		
+		voltage = readCapVoltage(C2_VOLT);
+		showVoltageLow(voltage);
+		if (voltage <= 1|| enable == FALSE) {
+			executeCapacitor &= ~(1<<2);
+		} else {
+			executeCapacitor |= (1<<2);
+		}
+	
+		}
 		//check for push
 		if ( ! (PINC & ( 1 << PUSH ))) {
 			
@@ -107,68 +138,37 @@ int main(void) {
 				showLoading();
 				calibrate();
 				showReady();
-		    } else {
-				fire();
-				showTodaysExecutions(++execCount);
-				
-				showLoading();
-				_delay_ms(CHARGE_WAIT_TIME);
-				showReady();
+				} else {
+				if (enable == FALSE){
+					showNoContactErr();
+					} else {
+					fire(executeCapacitor);
+					showTodaysExecutions(++execCount);
+					
+					showLoading();
+					_delay_ms(CHARGE_WAIT_TIME);
+					showReady();
+				}
 			}
 		}
-		
-		d -= 1;
-		if (d == 0){
-			
-			d=10;
-			float voltage =  readCapVoltage(C1_VOLT);
-			showVoltageHigh(voltage);
-			
-			if (voltage <= 2){
-				executeCapacitor &= ~(0<<1);
-				executeCapacitor &= ~(1<<1);
-				executeCapacitor &= ~(2<<1);  //DELETEME
-				
-				} else {
-				executeCapacitor |= (0<<1);
-				executeCapacitor |= (1<<1);
-				executeCapacitor |= (2<<1);  //DELETEME
-				
-			}
-			
-			voltage = readCapVoltage(C2_VOLT);
-			showVoltageLow(voltage);
-			if (voltage <= 2){
-				//  executeCapacitor &= ~(2<<1);
-				} else {
-				
-				//  executeCapacitor |= (2<<1);
-			}
-			
-		}
-		
 	}
-	
 }
 
 
 
 void fire (uint8_t executeCapacitor){
 	
-	//simulate
-	showContact();	
-	
 	struct executionResult result;
 	execute(&result, executeCapacitor);
 
-    
-    showOhm(result.ohmC1);
-    showAmpere(result.ampereC1);
+	showOhm(result.ohmC1);
+	showAmpere(result.ampereC1);
 	
 }
 
 void initPorts (){
 	DDRB |= ((1 << PB1) |(1 << PB2) |(0 << PB3) |(1 << PB4) | (1 << PB0));
 	DDRC |= ((1 << PC5) | (0 << PC1)|(0 << PC0)|(0 << PC4)|(0 << PC3));
+	DDRD |= ((1 << PD6) | (1 << PD7));
 	PORTC |= ((1 << PC1)|(1 << PC0));
 }

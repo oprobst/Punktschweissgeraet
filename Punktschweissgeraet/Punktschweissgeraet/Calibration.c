@@ -48,7 +48,7 @@ void calibrate() {
 	
 	showLastCalibration(cap1, cap2);
 	
-	//storeCap (cap1, cap2);
+	storeCap (cap1, cap2);
 }
 
 

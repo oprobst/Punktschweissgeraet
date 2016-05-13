@@ -24,7 +24,7 @@
 #endif
 
 #ifndef MSEC_CALIBRATION
-#define MSEC_CALIBRATION 2000
+#define MSEC_CALIBRATION 3000
 #endif
 
 #ifndef DISPLAY_LED
@@ -37,6 +37,10 @@
 
 #ifndef LED_BLUE
 #define LED_BLUE PC5
+#endif
+
+#ifndef BEEP
+#define BEEP PB2
 #endif
 
 //delegate to init of lcd driver
@@ -89,5 +93,8 @@ void showUpdateCalibration (double time);
 
 //Display Capacity for 5 sec.
 void showCapacity (float cap1, float cap2);
+
+//No contact to material fail
+void showNoContactErr ();
 
 #endif /* GUI_H_ */

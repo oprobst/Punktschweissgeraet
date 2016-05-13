@@ -13,9 +13,9 @@
 #include <stdint.h>  
 #include <avr/interrupt.h>
 
- #define LOW_EXEC_TIME 30
- #define BREAK_TIME 250
- #define HIGH_EXEC_TIME 30
+ #define LOW_EXEC_TIME 130
+ #define BREAK_TIME 450
+ #define HIGH_EXEC_TIME 130
  
  volatile uint32_t msPassed;
 
@@ -80,7 +80,7 @@ void execute (ExecutionResult *result, uint8_t executeCapacitor){
 	 initExecTimer();
 	 //Read Voltage, set output to true, if executeCapacitor is true for cap.
 	 mvC1Start = readCapVoltage(C1_VOLT);
-	 PORTB |= (CHECK_BIT(executeCapacitor, 0)<< PB4);
+	 PORTB |= (CHECK_BIT(executeCapacitor, 2)<< PB4);
 	 wait(LOW_EXEC_TIME);
 	 PORTB &= ~(1<< PB4);
 	 mvC1End = readCapVoltage(C1_VOLT);
@@ -88,7 +88,7 @@ void execute (ExecutionResult *result, uint8_t executeCapacitor){
 	 wait(BREAK_TIME);
 
 	 mvC2Start = readCapVoltage(C2_VOLT);
-	 PORTD |= (CHECK_BIT(executeCapacitor, 1) << PD6 | CHECK_BIT(executeCapacitor, 2) << PD7);
+	 PORTD |= (CHECK_BIT(executeCapacitor, 0) << PD6 | CHECK_BIT(executeCapacitor, 1) << PD7);
 	 wait(HIGH_EXEC_TIME);
 	 PORTD &= ~(1 << PD6 | 1 << PD7);
 	 mvC2End = readCapVoltage(C2_VOLT);
