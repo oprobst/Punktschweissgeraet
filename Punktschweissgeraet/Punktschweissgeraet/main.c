@@ -89,7 +89,7 @@ int main(void) {
 			showIfBothCapActive(executeBoth);
 		}
 		
-		if (readCapVoltage(CONTACT) < 5.0){
+		if (readCapVoltage(CONTACT) < 0.75){
 			enable = TRUE;
 			showContact();
 			} else {
@@ -161,8 +161,8 @@ void fire (uint8_t executeCapacitor){
 	struct executionResult result;
 	execute(&result, executeCapacitor);
 
-	showOhm(result.ohmC1);
-	showAmpere(result.ampereC1);
+	showOhm(result.ohmC2);
+	showAmpere(result.ampereC2);
 	
 }
 
