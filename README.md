@@ -1,12 +1,5 @@
 # Punktschweissgeraet
 
-# Raum für Verbesserungen:
+SchaltplÃ¤ne, Layouts und Software
 
-   1. Pinbelegung am Microcontroller nicht besonders gut gelegt. 
-      MISO/PB4 als Ansteuerung für den MOSFET-Treiber ist besonders ungeschickt, da dieser bei Programmierung nun unkontrolliert schaltet.
-   2. Im Prinzip würde auch ein Transformator reichen, da die Auslösung über den Microcontroller erfolgt. Dieser könnte kurz vorher den 
-      Ladestrom mittels Transistor unterbrechen und würde so nicht den gesamten Stromkreis kurzschließen, sondern nur die Kondensatoren.
-   3. Der R/W PIN vom Display ist nicht am Controller angeschlossen. Dadurch sind bei 16MHz unnötige manuelle Delays zu programmieren.
-   4. Die Anordnung der MOSFETs ist nicht optimal. Eigentlich sollten die MOSFETs als Low-Side Switch nach den Elektroden kommen. 
-      Allerdings habe ich mich nachträglich entschieden, den beiden großen Kondensatoren getrennt schaltbar zu machen. Dadurch wurde die 
-      Diodenparty um die Kondensatoren notwendig.
+See http://www.tief-dunkel-kalt.org/index.php/blog/42-diy-punktschweissgeraet for details (sorry, German only).
