@@ -13,9 +13,10 @@
 #include <stdint.h>  
 #include <avr/interrupt.h>
 
- #define LOW_EXEC_TIME 130
- #define BREAK_TIME 450
- #define HIGH_EXEC_TIME 130
+ #define LOW_EXEC_TIME 10
+ #define BREAK_TIME 50
+ #define HIGH_EXEC_TIME 20
+ #define WAIT_TILL_MEASURE 5
  
  volatile uint32_t msPassed;
 
@@ -32,11 +33,11 @@ double calculateOhm (float time, float capacity, float voltStart, float voltEnd)
 	return ((time * -1) / capacity) / log(voltEnd/voltStart);
 }
 
-uint16_t calcMaxAmpere (float maxVolt, float ohm){
+double calcMaxAmpere (float maxVolt, float ohm){
 	if (ohm <= 0.0){
 		return 0;
 	}
-	return (uint16_t) (maxVolt / ohm);
+	return (double) (maxVolt / ohm);
 }
 
 void initExecTimer(){
@@ -49,6 +50,7 @@ void initExecTimer(){
 
 volatile float mvC1End = -1;
 volatile float mvC2End = -1;
+ 
 
 void wait(uint8_t waitTime){
 	msPassed =0;
@@ -62,44 +64,41 @@ void stopExecTimer (){
 }
 
 ISR (TIMER1_COMPA_vect)
-{
-	if (mvC2End == -1){
-		mvC1End = readCapVoltage(C1_VOLT);
-		mvC2End = readCapVoltage(C2_VOLT);
-    }
+{	 
+	if (msPassed == WAIT_TILL_MEASURE){
+		mvC2End = readCapVoltage(C1_VOLT);		
+	}
     msPassed++;
 
 }
 
 void execute (ExecutionResult *result, uint8_t executeCapacitor){
-
-	float mvC1Start = 0;
-	float mvC1End = 0;
-	float mvC2Start = 0;
-	float mvC2End = 0;
+	 
 	 initExecTimer();
 	 //Read Voltage, set output to true, if executeCapacitor is true for cap.
-	 mvC1Start = readCapVoltage(C1_VOLT);
-	 PORTB |= (CHECK_BIT(executeCapacitor, 2)<< PB4);
+	//float mvC1Start = readCapVoltage(C2_VOLT);
+	
+	 PORTB |= (CHECK_BIT(executeCapacitor, 2) << PB4);
 	 wait(LOW_EXEC_TIME);
 	 PORTB &= ~(1<< PB4);
-	 mvC1End = readCapVoltage(C1_VOLT);
+	// mvC1End = readCapVoltage(C1_VOLT);
 	 
 	 wait(BREAK_TIME);
 
-	 mvC2Start = readCapVoltage(C2_VOLT);
-	 PORTD |= (CHECK_BIT(executeCapacitor, 0) << PD6 | CHECK_BIT(executeCapacitor, 1) << PD7);
+	 float mvC2Start = readCapVoltage(C1_VOLT);
+	 
+	 PORTD |= (CHECK_BIT(executeCapacitor, 1) << PD6 | CHECK_BIT(executeCapacitor, 0) << PD7);
 	 wait(HIGH_EXEC_TIME);
 	 PORTD &= ~(1 << PD6 | 1 << PD7);
-	 mvC2End = readCapVoltage(C2_VOLT);
+	 //mvC2End = readCapVoltage(C2_VOLT);
 
      stopExecTimer();
-	 result->voltageUsedC1 = mvC1Start - mvC1End;
+	// result->voltageUsedC1 = mvC1Start - mvC1End;
 	 result->voltageUsedC2 = mvC2Start - mvC2End;
-	 result->ohmC1  = calculateOhm (1, CAP_LOW_SIZE, mvC1Start, mvC1End);
-	 result->ohmC2 = calculateOhm (1, CAP_HIGH_SIZE, mvC2Start, mvC2End); 
-	 result->ampereC1 = calcMaxAmpere (mvC1Start , result->ohmC1);
-	 result->ampereC2 = calcMaxAmpere (mvC2Start , result->ohmC2);
+	// result->ohmC1  = calculateOhm (0.001, CAP_LOW_SIZE, mvC1Start, mvC1End);
+	 result->ohmC2 = calculateOhm (0.001 * WAIT_TILL_MEASURE, CAP_HIGH_SIZE, mvC2Start, mvC2End); 
+	// result->ampereC1 = calcMaxAmpere (mvC1Start , result->ohmC1);
+	 result->ampereC2 =calcMaxAmpere (mvC2Start , result->ohmC2);
 	  
 }
 

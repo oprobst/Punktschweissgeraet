@@ -80,7 +80,7 @@ void showFire();
 void showOhm(float ohm);
 
 // The calculated amperes drawn in the last execution
-void showAmpere (float ampere);
+void showAmpere (double ampere);
 
 //Debug output
 void writeDebug (const char *data);
