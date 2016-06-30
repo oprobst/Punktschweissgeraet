@@ -15137,6 +15137,8 @@ http://www.fairchildsemi.com/ds/LM/LM7805.pdf</description>
 <sheets>
 <sheet>
 <plain>
+<text x="-12.7" y="33.02" size="1.778" layer="97">LM350T</text>
+<text x="-15.24" y="-45.72" size="1.778" layer="97">LM350T</text>
 </plain>
 <instances>
 <instance part="IC1" gate="1" x="-12.7" y="30.48"/>

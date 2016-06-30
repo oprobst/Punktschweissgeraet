@@ -145,6 +145,7 @@ int main(void) {
 				if (enable == FALSE){
 					showNoContactErr();
 					} else {
+		
 					fire(executeCapacitor);					
 					showTodaysExecutions(getTodaysExections());
 					showLoading();
@@ -162,6 +163,7 @@ void fire (uint8_t executeCapacitor){
 	
 	struct executionResult result;
 	execute(&result, executeCapacitor);
+
 	if (MEASURE_DISCHARGE_CURVE == 1){
 		showDischargeCurve(&(result.measuredCurve));
 	}

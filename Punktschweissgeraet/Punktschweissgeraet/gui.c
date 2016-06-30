@@ -123,27 +123,34 @@ void showContact(){
 }
 
 void writeDebug (const char *data ){
-	lcd_setcursor(2, 2);
-	lcd_string(data);
+	
+	
+		lcd_setcursor(2, 2);
+		lcd_string(data);
 	_delay_ms(1000);
 }
-
-void showOhm(float ohm){
-	lcd_setcursor(0, 2);
+lcd_setcursor(0, 2);
 	lcd_string("      ");
+	if(ohm <= 0.0){
 	lcd_setcursor(0, 2);
 	if(ohm <= 0.000000){
 		lcd_string("x \364");
 		return;
 	}
+	lcd_setcursor(0, 2);
 	
 	char c [17];
 	if (ohm > 999){
 		lcd_string(">999\364");
+		} else if (ohm > 0.00999){
+		char c[17];
+		sprintf(c, "%.0f\364", ohm);
 		} else if (ohm > 0.999){
 		sprintf(c, "%.1f\364", ohm);
 		lcd_string(c);
 		} else {
+		char c[17];
+		sprintf(c, "%.2fm\364", (ohm*1000));
 		sprintf(c, "%.3fm\364", (ohm*1000.0f));
 		lcd_string(c);
 	}
@@ -154,16 +161,22 @@ void showAmpere (double ampere){
 	lcd_setcursor(4, 1);
 	lcd_string("     ");
 	lcd_setcursor(4, 1);
+	if (ampere < 1){
+		char c[6];
+		sprintf(c, "%.0f", ampere * 1000);
 	char c[6];
 	if (ampere < 1.0){
 		sprintf(c, "%.0f", (ampere * 1000.0));
 		lcd_string(c);
 		lcd_string("mA");
 		} else if (ampere < 1000){
+		char c[6];
 		sprintf(c, "%.0f", ampere);
 		lcd_string(c);
 		lcd_string("A");
 		} else {
+		char c[6];
+		sprintf(c, "%.2f", (ampere/1000));
 		sprintf(c, "%.2f", (ampere / 1000));
 		lcd_string(c);
 		lcd_string("kA");

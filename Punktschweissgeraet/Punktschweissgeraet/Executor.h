@@ -19,8 +19,8 @@
 #define C2_FIRE PD6
 #define C3_FIRE PB4
 
-#define CAP_LOW_SIZE 0.0524 //F
 #define CAP_HIGH_SIZE 0.206 //F
+
 
 #include <stdint.h>
 
