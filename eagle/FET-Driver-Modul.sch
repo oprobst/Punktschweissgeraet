@@ -13873,10 +13873,6 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <junction x="17.78" y="-17.78"/>
 </segment>
 <segment>
-<pinref part="GND29" gate="1" pin="GND"/>
-<wire x1="60.96" y1="-20.32" x2="60.96" y2="-17.78" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="U$5" gate="G$1" pin="GND"/>
 <wire x1="121.92" y1="2.54" x2="119.38" y2="2.54" width="0.1524" layer="91"/>
 <pinref part="GND30" gate="1" pin="GND"/>
@@ -13917,6 +13913,20 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <pinref part="GND5" gate="1" pin="GND"/>
 <wire x1="10.16" y1="-25.4" x2="10.16" y2="-27.94" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<wire x1="60.96" y1="-17.78" x2="71.12" y2="-17.78" width="0.1524" layer="91"/>
+<pinref part="C5" gate="G$1" pin="-"/>
+<wire x1="60.96" y1="-7.62" x2="60.96" y2="-17.78" width="0.1524" layer="91"/>
+<pinref part="C6" gate="G$1" pin="2"/>
+<wire x1="71.12" y1="-7.62" x2="71.12" y2="-17.78" width="0.1524" layer="91"/>
+<pinref part="U$4" gate="G$1" pin="GND"/>
+<wire x1="76.2" y1="2.54" x2="76.2" y2="-17.78" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="-17.78" x2="71.12" y2="-17.78" width="0.1524" layer="91"/>
+<junction x="71.12" y="-17.78"/>
+<pinref part="GND29" gate="1" pin="GND"/>
+<wire x1="60.96" y1="-17.78" x2="60.96" y2="-20.32" width="0.1524" layer="91"/>
+<junction x="60.96" y="-17.78"/>
+</segment>
 </net>
 <net name="N$33" class="0">
 <segment>
@@ -13940,21 +13950,6 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <wire x1="142.24" y1="2.54" x2="144.78" y2="2.54" width="0.1524" layer="91"/>
 <wire x1="144.78" y1="2.54" x2="144.78" y2="-7.62" width="0.1524" layer="91"/>
 <pinref part="X1" gate="-1" pin="KL"/>
-</segment>
-</net>
-<net name="GND1" class="0">
-<segment>
-<wire x1="60.96" y1="-20.32" x2="60.96" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="60.96" y1="-17.78" x2="71.12" y2="-17.78" width="0.1524" layer="91"/>
-<pinref part="C5" gate="G$1" pin="-"/>
-<wire x1="60.96" y1="-7.62" x2="60.96" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="60.96" y="-17.78"/>
-<pinref part="C6" gate="G$1" pin="2"/>
-<wire x1="71.12" y1="-7.62" x2="71.12" y2="-17.78" width="0.1524" layer="91"/>
-<pinref part="U$4" gate="G$1" pin="GND"/>
-<wire x1="76.2" y1="2.54" x2="76.2" y2="-17.78" width="0.1524" layer="91"/>
-<wire x1="76.2" y1="-17.78" x2="71.12" y2="-17.78" width="0.1524" layer="91"/>
-<junction x="71.12" y="-17.78"/>
 </segment>
 </net>
 <net name="N$2" class="0">
