@@ -9,7 +9,11 @@
 #ifndef EXECUTOR_H_
 #define EXECUTOR_H_
 
-#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
+#ifndef MEASURE_DISCHARGE_CURVE
+#define MEASURE_DISCHARGE_CURVE 1
+#endif
+
+#define CHECK_BIT(var,pos) ((var >> pos) & 1)
 
 #define C1_FIRE PD7
 #define C2_FIRE PD6
@@ -24,10 +28,11 @@ struct executionResult
 {
 	double ohmC1;
 	double voltageUsedC1;
-	uint16_t ampereC1;	
+	double ampereC1;	
 	double ohmC2;
 	double voltageUsedC2;
-	uint16_t ampereC2;
+	double ampereC2;
+	double measuredCurve [26];
 };
 
 typedef struct executionResult ExecutionResult;

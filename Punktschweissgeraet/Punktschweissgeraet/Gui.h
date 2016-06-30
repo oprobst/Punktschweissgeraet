@@ -11,8 +11,9 @@
 #ifndef GUI_H_
 #define GUI_H_
 
+
 #ifndef DEBUG
-#define DEBUG 1
+#define DEBUG 0
 #endif
 
 #ifndef MSEC_INTRO
@@ -80,7 +81,7 @@ void showFire();
 void showOhm(float ohm);
 
 // The calculated amperes drawn in the last execution
-void showAmpere (float ampere);
+void showAmpere (double ampere);
 
 //Debug output
 void writeDebug (const char *data);
@@ -96,5 +97,7 @@ void showCapacity (float cap1, float cap2);
 
 //No contact to material fail
 void showNoContactErr ();
+
+void showDischargeCurve (double values []);
 
 #endif /* GUI_H_ */

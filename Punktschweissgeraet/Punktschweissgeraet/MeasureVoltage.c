@@ -70,7 +70,7 @@
 		 (1 << MUX2)  |
 		 (0 << MUX1)  |
 		 (0 << MUX0);
-		 return readADCsamples(16);
+		 return readADCsamples(3);
 		 case C2_VOLT: //PC3
 		 ADMUX =
 		 (0 << ADLAR) |
@@ -80,7 +80,7 @@
 		 (0 << MUX2)  |
 		 (1 << MUX1)  |
 		 (0 << MUX0);
-		 return readADCsamples(16);
+		 return readADCsamples(3);
 		 
 		 default: //read CONTACT, no error handling... //PC2
 		 ADMUX =

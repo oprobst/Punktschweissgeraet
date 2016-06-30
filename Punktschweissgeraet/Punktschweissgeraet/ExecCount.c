@@ -8,30 +8,32 @@
 #include "ExecCount.h"
 #include <avr/eeprom.h>
 
-uint32_t overallCount = 0;
-uint16_t todayCount = 0;
+uint32_t overallCount;
+uint16_t todayCount;
 uint32_t EEMEM eeExecMem;
 
 void initExecCount (){
-    eeprom_busy_wait();
-	overallCount = eeprom_read_dword(0);	
 	eeprom_busy_wait();
+	//eeprom_update_dword(&eeExecMem, 82);
 	overallCount = eeprom_read_dword(&eeExecMem);
+	todayCount = 0;
+}
+
+void storeOverallExecutions(){
+	eeprom_busy_wait();
+	eeprom_update_dword(&eeExecMem, overallCount);
 }
 
 void addExecution (){
 	overallCount++;
 	todayCount++;
-	  storeOverallExecutions();
+	storeOverallExecutions();
 }
 uint32_t getAllExecutions(){
-	return overallCount;
+	return overallCount;	
 }
+
 uint16_t getTodaysExections(){
 	return todayCount;
 }
 
-void storeOverallExecutions(){
-	  eeprom_busy_wait();
-	  eeprom_update_dword((uint32_t*) &eeExecMem, overallCount);
-}

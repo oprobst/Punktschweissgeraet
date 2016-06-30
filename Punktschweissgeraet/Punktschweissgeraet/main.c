@@ -4,9 +4,11 @@
 #define FALSE 0
 
 
-#define CHARGE_WAIT_TIME 500 //ms
+#define CHARGE_WAIT_TIME 1000 //ms
 
 #define TIME_TO_PUSH_FOR_CALIBRATION 5000 //ms
+
+
 
 // LCD DEFINES
 #define LCD_IO_MODE   1
@@ -50,27 +52,28 @@
 #include "Calibation.h"
 
 int main(void) {
-	
-	//PINB |= (1<<PB1); //Invert PB4
-	uint32_t c =0;
-	uint32_t d =1;
-	uint32_t execCount =0;
-	int8_t enable = FALSE;
-	
 	initPorts();
 	initADC();
 	initExecCount();
 	initLcd();
-	//showWelcomeScreen();
-	//showAllExecutions(getAllExecutions());
-	//	showLastCalibration(loadCap1(), loadCap2());
+	
+	//double  val [] = {13.10d, 0.0d};
+	//showDischargeCurve(val);
+	
+	//PINB |= (1<<PB1); //Invert PB4
+	 
+	int8_t enable = FALSE;
+	
+	showWelcomeScreen();
+	showAllExecutions(getAllExecutions());
+	showLastCalibration(loadCap1(), loadCap2());
 	showReady();
 	showIfBothCapActive (TRUE);
 	showVoltageHigh(0);
 	showVoltageLow(0);
 	showTodaysExecutions(0);
-	showOhm (0.0);
-	showAmpere (0.0);
+	showOhm (0.0f);
+	showAmpere (0.0f);
 	
 	//bit0 = first large C, bit1= second large C, bit2= small c
 	uint8_t executeCapacitor = 0b1;
@@ -89,7 +92,7 @@ int main(void) {
 			showIfBothCapActive(executeBoth);
 		}
 		
-		if (readCapVoltage(CONTACT) < 5.0){
+		if (readCapVoltage(CONTACT) < 0.25){
 			enable = TRUE;
 			showContact();
 			} else {
@@ -142,9 +145,8 @@ int main(void) {
 				if (enable == FALSE){
 					showNoContactErr();
 					} else {
-					fire(executeCapacitor);
-					showTodaysExecutions(++execCount);
-					
+					fire(executeCapacitor);					
+					showTodaysExecutions(getTodaysExections());
 					showLoading();
 					_delay_ms(CHARGE_WAIT_TIME);
 					showReady();
@@ -160,9 +162,13 @@ void fire (uint8_t executeCapacitor){
 	
 	struct executionResult result;
 	execute(&result, executeCapacitor);
-
-	showOhm(result.ohmC1);
-	showAmpere(result.ampereC1);
+	if (MEASURE_DISCHARGE_CURVE == 1){
+		showDischargeCurve(&(result.measuredCurve));
+	}
+	
+    addExecution ();
+	showOhm(result.ohmC2);
+	showAmpere(result.ampereC2);
 	
 }
 
