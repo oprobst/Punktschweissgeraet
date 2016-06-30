@@ -10,7 +10,7 @@
 #define EXECUTOR_H_
 
 #ifndef MEASURE_DISCHARGE_CURVE
-#define MEASURE_DISCHARGE_CURVE 1
+#define MEASURE_DISCHARGE_CURVE 0
 #endif
 
 #define CHECK_BIT(var,pos) ((var >> pos) & 1)

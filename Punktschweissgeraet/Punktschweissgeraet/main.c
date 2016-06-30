@@ -4,7 +4,7 @@
 #define FALSE 0
 
 
-#define CHARGE_WAIT_TIME 1000 //ms
+#define CHARGE_WAIT_TIME 3000 //ms
 
 #define TIME_TO_PUSH_FOR_CALIBRATION 5000 //ms
 
@@ -61,7 +61,7 @@ int main(void) {
 	//showDischargeCurve(val);
 	
 	//PINB |= (1<<PB1); //Invert PB4
-	 
+	
 	int8_t enable = FALSE;
 	
 	showWelcomeScreen();
@@ -99,31 +99,31 @@ int main(void) {
 			enable = FALSE;
 			showReady();
 		}
-				
+		
 		float voltage =  readCapVoltage(C1_VOLT);
 		showVoltageHigh(voltage);
 		if(1){
-		
-		if (voltage <= 1 || enable == FALSE){
-			executeCapacitor &= ~(1<<0);
-			executeCapacitor &= ~(1<<1);
-		} else {
-			executeCapacitor |= (1<<0);
-			if (executeBoth == TRUE){
-				executeCapacitor |= (1<<1);
-			} else {
+			
+			if (voltage <= 1 || enable == FALSE){
+				executeCapacitor &= ~(1<<0);
 				executeCapacitor &= ~(1<<1);
+				} else {
+				executeCapacitor |= (1<<0);
+				if (executeBoth == TRUE){
+					executeCapacitor |= (1<<1);
+					} else {
+					executeCapacitor &= ~(1<<1);
+				}
 			}
-		}
-		
-		voltage = readCapVoltage(C2_VOLT);
-		showVoltageLow(voltage);
-		if (voltage <= 1|| enable == FALSE) {
-			executeCapacitor &= ~(1<<2);
-		} else {
-			executeCapacitor |= (1<<2);
-		}
-	
+			
+			voltage = readCapVoltage(C2_VOLT);
+			showVoltageLow(voltage);
+			if (voltage <= 1|| enable == FALSE) {
+				executeCapacitor &= ~(1<<2);
+				} else {
+				executeCapacitor |= (1<<2);
+			}
+			
 		}
 		//check for push
 		if ( ! (PINC & ( 1 << PUSH ))) {
@@ -145,8 +145,7 @@ int main(void) {
 				if (enable == FALSE){
 					showNoContactErr();
 					} else {
-		
-					fire(executeCapacitor);					
+					fire(executeCapacitor);
 					showTodaysExecutions(getTodaysExections());
 					showLoading();
 					_delay_ms(CHARGE_WAIT_TIME);
@@ -163,12 +162,11 @@ void fire (uint8_t executeCapacitor){
 	
 	struct executionResult result;
 	execute(&result, executeCapacitor);
-
 	if (MEASURE_DISCHARGE_CURVE == 1){
 		showDischargeCurve(&(result.measuredCurve));
 	}
 	
-    addExecution ();
+	addExecution ();
 	showOhm(result.ohmC2);
 	showAmpere(result.ampereC2);
 	
